@@ -1,0 +1,13 @@
+.active {
+    background-color: #FFF !important;
+    background-image: none !important;   
+    text-align: center !important; 
+
+    color: #000!important;
+    transform: rotateY(360deg) !important;
+}
+
+.matched{
+    opacity: 0 !important;
+    // visibility: hidden;
+}

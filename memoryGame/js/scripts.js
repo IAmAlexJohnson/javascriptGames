@@ -1,10 +1,9 @@
-
-// setup game board
-//when item is clicked it flips over
-// if two items are flipped check if they are the same
-// check that same card isnt clicked twice.
 const gameBoard = document.getElementById('game-board');
-const cardArr = [1,1,2,2,3,3,4,4];
+const cardArr = [1,1,2,2,3,3,4,4,5,5];
+const cardArrMed =[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10];
+const cardArrHard =[];
+const cardArrExtreme =[];
+
 let clickedArr = [];
 let itemArr=[];
 let itemClass =[];
@@ -19,16 +18,28 @@ function shuffleArray(array) {
     }
 }
 
-
+function updateInfoBox(){
+    infoBox.innerHTML =`<p>Attempts: ${attempts}</p>
+    <p>Card Matches: ${cardMatches}</p>
+    <p>&nbsp;</p>`;
+}
 function setupGame(){
     gameBoard.innerHTML = "";
     shuffleArray(cardArr);
     setupCards();
-    infoBox.innerHTML ="";
+    updateInfoBox();
+    attempts = 0;
+    cardMatches = 0;
+    updateInfoBox();
 }
 
 function setupCards() {
-    cardArr.forEach((a,b) => {return gameBoard.innerHTML += `<div id='card' class='card${b}'>${a}</div>`});
+    cardArr.forEach((a,b) => {
+        return gameBoard.innerHTML += 
+        `<div id='card' class='card${b}'>
+            ${a}
+        </div>`
+    });
     
 }
 
@@ -67,12 +78,12 @@ function checkClick (){
 
     if(clickedArr.length === 2){
         if(clickedArr[0] === clickedArr[1]){
-            setTimeout(function () { itemArr.map(a => {a.classList.remove('active'); a.classList.add('matched');}) }, 300); 
+            setTimeout(function () { itemArr.map(a => {a.classList.remove('active'); a.classList.add('matched');}) }, 800); 
             // console.log('matched');
             cardMatches++;
         }
         attempts++;
-        setTimeout(function () { removeClass() }, 500);
+        setTimeout(function () { removeClass() }, 800);
         
     }
 
@@ -81,7 +92,7 @@ function checkClick (){
 
 
 
-    if(cardMatches === 4){
+    if(cardMatches === 5){
         setTimeout(function () { infoBox.innerHTML = `<p>You Win! Attempts: ${attempts}</p> <button id='reset' onClick='setupGame()'>Reset</button>`; }, 500);
         // console.log('win');
     }
@@ -102,5 +113,6 @@ document.addEventListener('click', function (event) {
 	// If the clicked element doesn't have the right selector, bail
     if (!event.target.matches('#card')) return;
     checkClick();   
+    updateInfoBox();
 
 }, false);
